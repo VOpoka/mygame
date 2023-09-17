@@ -6,8 +6,8 @@ from pygame.constants import QUIT, K_DOWN, K_UP, K_LEFT, K_RIGHT
 
 pygame.init()
 
-HEIGTH = 800
-WIDTH = 1200
+HEIGTH = 1200
+WIDTH = 1800
 
 FONT = pygame.font.SysFont('Verdana', 20)
 
@@ -34,10 +34,10 @@ player = pygame.transform.scale(pygame.image.load(
     'player.png'), (160, 100))
 player_size = player.get_size()
 player_rect = player.get_rect(midleft=(0, random.randint(100, 500)))
-player_move_down = [0, 4]
-player_move_left = [-5, 0]
-player_move_up = [0, -4]
-player_move_right = [4, 0]
+player_move_down = [0, 8]
+player_move_left = [-9, 0]
+player_move_up = [0, -8]
+player_move_right = [8, 0]
 
 
 def create_enemy():
@@ -46,7 +46,7 @@ def create_enemy():
         'enemy.png'), (100, 40))
     enemy_size = enemy.get_size()
     enemy_rect = pygame.Rect(WIDTH, random.randint(-20, 500), *enemy_size)
-    enemy_move = [random.randint(-7, -3), 0]
+    enemy_move = [random.randint(-10, -5), 0]
     return [enemy, enemy_rect, enemy_move]
 
 
@@ -61,7 +61,7 @@ def create_prize():
         'bonus.png'), (130, 140))
     prize_size = prize.get_size()
     prize_rect = pygame.Rect(random.randint(0, WIDTH-50), 50, *prize_size)
-    prize_move = [0, random.randint(4, 8)]
+    prize_move = [0, random.randint(6, 8)]
     return [prize, prize_rect, prize_move]
 
 
@@ -145,3 +145,12 @@ while playing:
     for prize in prizeies:
         if prize[1].bottom < 0:
             prizeies.pop(prizeies.index(prize))
+
+
+#   for prize in prizeies:
+#       if prize[1].top > HEIGHT:
+#           prizeies.pop(prizeies.index(prize))
+
+#    for prize in prizeies:
+#       if prize[1].bottom < 0:
+#           prizeies.pop(prizeies.index(prize))
