@@ -1,6 +1,5 @@
 import random
 import os
-
 import pygame
 
 from pygame.constants import QUIT, K_DOWN, K_UP, K_LEFT, K_RIGHT
@@ -46,7 +45,7 @@ def create_enemy():
     enemy = pygame.transform.scale(pygame.image.load(
         'enemy.png'), (100, 40))
     enemy_size = enemy.get_size()
-    enemy_rect = pygame.Rect(WIDTH, random.randint(-50, 500), *enemy_size)
+    enemy_rect = pygame.Rect(WIDTH, random.randint(-20, 500), *enemy_size)
     enemy_move = [random.randint(-7, -3), 0]
     return [enemy, enemy_rect, enemy_move]
 
