@@ -1,6 +1,8 @@
 import random
 import os
+
 import pygame
+
 from pygame.constants import QUIT, K_DOWN, K_UP, K_LEFT, K_RIGHT
 
 pygame.init()
@@ -28,10 +30,10 @@ bg_move = 3
 IMAGE_PATH = "Goose"
 PLAYER_IMAGES = os.listdir(IMAGE_PATH)
 
-player_size = (30, 300)
 player = pygame.image.load('player.png').convert_alpha()
 player = pygame.transform.scale(pygame.image.load(
     'player.png'), (160, 100))
+player_size = player.get_size()
 player_rect = player.get_rect(midleft=(0, random.randint(100, 500)))
 player_move_down = [0, 4]
 player_move_left = [-5, 0]
@@ -40,10 +42,12 @@ player_move_right = [4, 0]
 
 
 def create_enemy():
-    enemy_size = (20, 20)
     enemy = pygame.image.load('enemy.png').convert_alpha()
-    enemy_rect = pygame.Rect(WIDTH, random.randint(-50, 0)), *enemy_size
-    enemy_move = [random.randint(-8, -4), 0]
+    enemy = pygame.transform.scale(pygame.image.load(
+        'enemy.png'), (100, 40))
+    enemy_size = enemy.get_size()
+    enemy_rect = pygame.Rect(WIDTH, random.randint(-50, 500), *enemy_size)
+    enemy_move = [random.randint(-7, -3), 0]
     return [enemy, enemy_rect, enemy_move]
 
 
@@ -54,6 +58,8 @@ enemies = []
 
 def create_prize():
     prize = pygame.image.load('bonus.png').convert_alpha()
+    prize = pygame.transform.scale(pygame.image.load(
+        'bonus.png'), (130, 140))
     prize_size = prize.get_size()
     prize_rect = pygame.Rect(random.randint(0, WIDTH-50), 50, *prize_size)
     prize_move = [0, random.randint(4, 8)]
@@ -62,14 +68,12 @@ def create_prize():
 
 CREATE_PRIZE = pygame.USEREVENT+2
 pygame.time.set_timer(CREATE_PRIZE, 1900)
-
 prizeies = []
 
 CHANGE_IMAGE = pygame.USEREVENT+3
 pygame.time.set_timer(CHANGE_IMAGE, 200)
 
 score = 0
-
 image_index = 0
 
 playing = True
@@ -123,8 +127,7 @@ while playing:
         main_display.blit(enemy[0], enemy[1])
 
         if player_rect.colliderect(enemy[1]):
-            print("Booom")
-           # playing = False
+            playing = False
 
     for prize in prizeies:
         prize[1] = prize[1].move(prize[2])
@@ -143,19 +146,3 @@ while playing:
     for prize in prizeies:
         if prize[1].bottom < 0:
             prizeies.pop(prizeies.index(prize))
-    # player_size = (10, 10)
-    # player = pygame.image.load('player.png').convert_alpha()
-    # player_rect = player.get_rect(midleft=(20, random.randint(100, 500)))
-    # player_rect = player.get_rect()
-    # player_move_down = [0, 4]
-    # player_move_left = [-5, 0]
-    # player_move_up = [0, -4]
-    # player_move_right = [4, 0]
-
-    #    if event.type == CREATE_BONUS:
-# Створюйте бонуси лише у випадку, якщо вони досягли нижньої частини екрану
-            # if bonuses and bonuses[-1][1].top > HEIGHT:
-            #    bonuses.pop()
-            #    bonuses.append(create_bonus())
-# random.randint(enemy.get_height(), HEIGHT - enemy.get_height())
-# WIDTH, random.randint(0, HEIGTH), *enemy_size
