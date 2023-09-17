@@ -42,7 +42,7 @@ player_move_right = [4, 0]
 def create_enemy():
     enemy_size = (20, 20)
     enemy = pygame.image.load('enemy.png').convert_alpha()
-    enemy_rect = pygame.Rect(WIDTH, random.randint(0, -50)), *enemy_size
+    enemy_rect = pygame.Rect(WIDTH, random.randint(-50, 0)), *enemy_size
     enemy_move = [random.randint(-8, -4), 0]
     return [enemy, enemy_rect, enemy_move]
 
@@ -53,8 +53,8 @@ enemies = []
 
 
 def create_prize():
-    prize_size = prize.get_size(10, 10)
     prize = pygame.image.load('bonus.png').convert_alpha()
+    prize_size = prize.get_size()
     prize_rect = pygame.Rect(random.randint(0, WIDTH-50), 50, *prize_size)
     prize_move = [0, random.randint(4, 8)]
     return [prize, prize_rect, prize_move]
